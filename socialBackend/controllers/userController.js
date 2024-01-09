@@ -2,7 +2,16 @@
 
 const db = require("../config/db");
 
-// ... other controller methods
+// Controller method to get all users
+exports.getAllUsers = (req, res) => {
+  db.all("SELECT * FROM users", (err, rows) => {
+    if (err) {
+      res.status(500).json({ error: "Internal Server Error" });
+    } else {
+      res.json(rows);
+    }
+  });
+};
 
 // Controller method to create a new user
 exports.createUser = (req, res) => {
@@ -21,11 +30,10 @@ exports.createUser = (req, res) => {
     [username, email, password],
     function (err) {
       if (err) {
-        return res.status(500).json({ error: "Internal Server Error" });
+        res.status(500).json({ error: "Internal Server Error" });
+      } else {
+        res.json({ user_id: this.lastID, username, email });
       }
-
-      // Return the newly created user details
-      res.json({ user_id: this.lastID, username, email });
     }
   );
 };

@@ -1,7 +1,22 @@
 import React from "react";
 import UserForm from "./components/UserForm";
+import {
+  Box,
+  Heading,
+  Center,
+  Link,
+  useColorMode,
+  Button,
+  chakra,
+} from "@chakra-ui/react";
+import { ArrowBackIcon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
+  const { colorMode } = useColorMode();
+  let navigate = useNavigate();
+  const ChakraLink = chakra(Link); // Wrap Link with chakra
+
   const addUser = async (userData) => {
     try {
       // Make a POST request to the backend to create a new user
@@ -25,10 +40,30 @@ const RegisterPage = () => {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
-      <UserForm addUser={addUser} />
-    </div>
+    <Center minH="100vh">
+      <Box
+        p={8}
+        maxW="400px"
+        borderWidth="1px"
+        borderRadius="lg"
+        boxShadow="lg"
+        bg={colorMode === "dark" ? "gray.700" : "white"}
+      >
+        <Button
+          onClick={() => navigate("/")}
+          colorScheme="teal"
+          variant="link"
+          mt={4}
+        >
+          <ArrowBackIcon /> Back to Login
+        </Button>
+
+        <Heading as="h2" size="xl" textAlign="center" mb={6}>
+          Register
+        </Heading>
+        <UserForm addUser={addUser} />
+      </Box>
+    </Center>
   );
 };
 

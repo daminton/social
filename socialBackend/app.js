@@ -37,11 +37,13 @@ const userRoutes = require("./routes/userRoutes");
 const postRoutes = require("./routes/postRoutes");
 const commentRoutes = require("./routes/commentRoutes");
 const likeRoutes = require("./routes/likeRoutes");
+const authRoutes = require("./routes/authRoutes"); // Import the login route
 
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
 app.use("/comments", commentRoutes);
 app.use("/likes", likeRoutes);
+app.use(authRoutes); // Use the login route
 
 // Start the server
 app.listen(PORT, () => {
